@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise & Sunset Times</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-sun"></i> Sunrise & Sunset</h1>
+            <p>Discover the golden hours of your day</p>
+        </header>
+
+        <main>
+            <div class="location-section">
+                <div class="current-location">
+                    <button id="detectLocationBtn" class="btn btn-primary">
+                        <i class="fas fa-location-arrow"></i>
+                        Detect My Location
+                    </button>
+                </div>
+                
+                <div class="manual-location">
+                    <div class="input-group">
+                        <input type="text" id="locationInput" placeholder="Enter city name or coordinates">
+                        <button id="searchLocationBtn" class="btn btn-secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Getting your sunrise and sunset times...</p>
+            </div>
+
+            <div class="results" id="results">
+                <div class="location-info">
+                    <h2 id="locationName">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="locationText"></span>
+                    </h2>
+                    <p id="dateInfo"></p>
+                </div>
+
+                <div class="times-grid">
+                    <div class="time-card sunrise">
+                        <div class="icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="time-info">
+                            <h3>Sunrise</h3>
+                            <div class="time" id="sunriseTime">--:--</div>
+                            <div class="label">Good morning!</div>
+                        </div>
+                    </div>
+
+                    <div class="time-card sunset">
+                        <div class="icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="time-info">
+                            <h3>Sunset</h3>
+                            <div class="time" id="sunsetTime">--:--</div>
+                            <div class="label">Good evening!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additional-info">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span class="label">Day Length</span>
+                            <span class="value" id="dayLength">--:--</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-sun"></i>
+                            <span class="label">Solar Noon</span>
+                            <span class="value" id="solarNoon">--:--</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-mountain"></i>
+                            <span class="label">Civil Twilight</span>
+                            <span class="value" id="civilTwilight">--:-- - --:--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error" id="error">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Oops! Something went wrong</h3>
+                    <p id="errorMessage">Unable to get location data. Please try again.</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with ❤️ using the <a href="https://sunrise-sunset.org/api" target="_blank">Sunrise-Sunset API</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
