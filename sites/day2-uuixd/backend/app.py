@@ -7,7 +7,7 @@ import os
 import requests as pyrequests
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://uuixd.machandler.com"])  # Restrict CORS to your frontend domain
 
 COUNTER_FILE = 'recent_uuid.tmp'
 COUNTRY_FILE = 'country_counts.tmp'
@@ -97,7 +97,7 @@ def check_rate_limit(ip):
         return False
     return True
 
-@app.route('/', methods=['GET'])
+@app.route('/uuixd/', methods=['GET'])
 def increment_uuid():
     global uuid_int
     ip = request.remote_addr
@@ -118,7 +118,7 @@ def increment_uuid():
     uuid_str = f'{hex_str[0:8]}-{hex_str[8:12]}-{hex_str[12:16]}-{hex_str[16:20]}-{hex_str[20:32]}'
     return uuid_str
 
-@app.route('/leaderboard', methods=['GET'])
+@app.route('/uuixd/leaderboard', methods=['GET'])
 def leaderboard():
     with country_lock:
         top = country_counts.most_common(3)

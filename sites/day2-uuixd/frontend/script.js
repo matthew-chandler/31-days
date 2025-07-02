@@ -9,8 +9,7 @@ async function generateUuid() {
     display.textContent = 'Loading...';
     if (copiedFeedback) copiedFeedback.style.display = 'none';
     try {
-        // Change the URL if backend runs on a different port or host
-        const response = await fetch('http://localhost:5000/');
+        const response = await fetch('https://api.machandler.com/uuixd/');
         if (!response.ok) {
             const errorText = await response.text();
             display.textContent = `Error: ${response.status} - ${errorText}`;
@@ -112,7 +111,7 @@ function renderLeaderboard(entries) {
 
 async function fetchLeaderboard() {
     try {
-        const response = await fetch('http://localhost:5000/leaderboard');
+        const response = await fetch('https://api.machandler.com/uuixd/leaderboard');
         if (!response.ok) return;
         const data = await response.json();
         renderLeaderboard(data);
