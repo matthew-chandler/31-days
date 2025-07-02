@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+    transition: background 0.8s ease;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Fallback gradients - only used if images fail to load */
+body.early-morning:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+}
+
+body.sunrise:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #f093fb 75%, #ff9a9e 100%);
+}
+
+body.morning:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 25%, #ffd89b 50%, #19547b 75%, #a8edea 100%);
+}
+
+body.midday:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #667eea 75%, #764ba2 100%);
+}
+
+body.afternoon:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #ff8a80 50%, #ff7043 75%, #ffecd2 100%);
+}
+
+body.sunset:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 25%, #fa709a 50%, #fee140 75%, #fa709a 100%);
+}
+
+body.twilight:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 25%, #667eea 50%, #764ba2 75%, #4facfe 100%);
+}
+
+body.night:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0c0c0c 100%);
+}
+
+body.late-night:not([style*="background-image"]) {
+    background: linear-gradient(135deg, #000000 0%, #0f0f23 25%, #1a1a2e 50%, #16213e 75%, #000000 100%);
+}
+
+/* Adjust header text color for dark backgrounds */
+body.night header,
+body.late-night header,
+body.early-morning header {
+    color: white;
+}
+
+body.night header h1,
+body.late-night header h1,
+body.early-morning header h1 {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Default light header for day backgrounds */
+body.sunrise header,
+body.morning header,
+body.midday header,
+body.afternoon header,
+body.sunset header,
+body.twilight header {
+    color: white;
+}
+
+body.sunrise header h1,
+body.morning header h1,
+body.midday header h1,
+body.afternoon header h1,
+body.sunset header h1,
+body.twilight header h1 {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white; /* Default color, overridden by time-based classes */
+    transition: color 0.5s ease;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: text-shadow 0.5s ease;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.location-display {
+    flex: 1;
+    text-align: center;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.location-display:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.loading-spinner span {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.location-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.coordinates {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.current-date {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.city-info {
+    font-size: 1rem;
+    color: #444;
+    margin: 8px 0 5px 0;
+    font-weight: 500;
+}
+
+.location-controls {
+    margin-top: 30px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.controls-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.location-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.location-search {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid rgba(103, 126, 234, 0.5);
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.location-search:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(103, 126, 234, 0.15), 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 1);
+}
+
+.coordinate-hint {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    border-left: 3px solid #667eea;
+}
+
+.sun-times-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.sun-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sun-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.sun-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.sun-card h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.time {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.countdown {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.date-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.date-info p {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    transition: color 0.5s ease;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+footer a:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Darker footer text for very light backgrounds */
+body.morning footer,
+body.midday footer {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.morning footer a,
+body.midday footer a {
+    color: rgba(0, 0, 0, 0.8);
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+body.morning footer a:hover,
+body.midday footer a:hover {
+    border-color: rgba(0, 0, 0, 0.6);
+}
+
+.error-message {
+    background: #ff6b6b;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.retry-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .sun-times-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .additional-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .time {
+        font-size: 2rem;
+    }
+    
+    .location-options {
+        width: 100%;
+    }
+    
+    .search-container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .sun-card {
+        padding: 20px;
+    }
+    
+    .time {
+        font-size: 1.8rem;
+    }
+}

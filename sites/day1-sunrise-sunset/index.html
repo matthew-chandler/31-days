@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise & Sunset Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☀️ Sunrise & Sunset</h1>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <div id="current-date" class="current-date"></div>
+                
+                <div class="search-container">
+                    <div id="location-info" class="location-display">
+                        <div class="loading-spinner">
+                            <div class="spinner"></div>
+                            <span>Detecting your location via IP...</span>
+                        </div>
+                    </div>
+                    <input type="text" id="location-search" class="location-search" placeholder="Search for a city or enter coordinates..." style="display: none;" />
+                </div>
+                
+                <div id="coordinate-hint" class="coordinate-hint" style="display: none;">
+                    <p>💡 You can also enter coordinates like: "40.7128, -74.0060" or "40.7128°N, 74.0060°W"</p>
+                </div>
+                
+                <div id="coordinates" class="coordinates" style="display: none;"></div>
+            </div>
+
+            <div class="sun-times-container">
+                <div class="sun-card sunrise-card">
+                    <div class="sun-icon">🌅</div>
+                    <h2>Sunrise</h2>
+                    <div id="sunrise-time" class="time">--:--</div>
+                    <div id="sunrise-countdown" class="countdown"></div>
+                </div>
+
+                <div class="sun-card sunset-card">
+                    <div class="sun-icon">🌇</div>
+                    <h2>Sunset</h2>
+                    <div id="sunset-time" class="time">--:--</div>
+                    <div id="sunset-countdown" class="countdown"></div>
+                </div>
+            </div>
+
+            <div class="additional-info">
+                <div class="info-card">
+                    <h3>Day Length</h3>
+                    <div id="day-length" class="info-value">--:--</div>
+                </div>
+                <div class="info-card">
+                    <h3>Solar Noon</h3>
+                    <div id="solar-noon" class="info-value">--:--</div>
+                </div>
+                <div class="info-card">
+                    <h3>Next Time Change</h3>
+                    <div id="dst-info" class="info-value">--</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Sunrise/sunset data from <a href="https://sunrise-sunset.org/api" target="_blank">Sunrise-Sunset.org</a> • IP location via <a href="https://ipapi.co" target="_blank">ipapi.co</a> • Geocoding via <a href="https://nominatim.openstreetmap.org" target="_blank">OpenStreetMap</a> • Background images courtesy of <a href="https://unsplash.com" target="_blank">Unsplash</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+IMAGE ATTRIBUTION AND LICENSING
+=====================================
+
+This directory contains background images sourced from Unsplash (https://unsplash.com/).
+
+All images are used under the Unsplash License (https://unsplash.com/license).
+
+UNSPLASH LICENSE SUMMARY:
+- All photos published on Unsplash can be used for free
+- You can use them for commercial and noncommercial purposes
+- You do not need to ask permission from or provide credit to the photographer or Unsplash, although it is appreciated when possible
+- More info at: https://unsplash.com/license
+
+IMAGE SOURCES:
+==============
+
+The following images are used in this application, carefully selected to match specific times of day:
+
+Early Morning (Pre-dawn, Dark Blue Sky):
+- photo-1469474968028-56623f02e42e (Misty pre-dawn landscape)
+- photo-1484950763426-56b5bf172dbb (Dark blue morning sky)
+- photo-1551632811-561732d1e306 (Early morning mist)
+
+Sunrise (Golden Hour, Warm Orange/Pink Light):
+- photo-1495616811223-4d98c6e9c869 (Ocean sunrise)
+- photo-1447752875215-b2761acb3c5d (Mountain sunrise)
+- photo-1518837695005-2083093ee35b (Forest sunrise)
+
+Morning (Bright, Fresh, Clear Blue Sky):
+- photo-1441974231531-c6227db76b6e (Bright forest path)
+- photo-1470071459604-3b5ec3a7fe05 (Clear lake morning)
+- photo-1506905925346-21bda4d32df4 (Alpine morning)
+
+Midday (Bright Sunshine, Intense Light):
+- photo-1506905925346-21bda4d32df4 (Bright mountain peak)
+- photo-1501594907352-04cda38ebc29 (Intense ocean midday)
+- photo-1441974231531-c6227db76b6e (Bright green forest)
+
+Afternoon (Warm Golden Light, Late Day):
+- photo-1470071459604-3b5ec3a7fe05 (Warm lake afternoon)
+- photo-1506905925346-21bda4d32df4 (Golden mountain light)
+- photo-1441974231531-c6227db76b6e (Warm forest afternoon)
+
+Sunset (Dramatic Orange/Red Sky, Setting Sun):
+- photo-1495616811223-4d98c6e9c869 (Ocean sunset)
+- photo-1447752875215-b2761acb3c5d (Mountain sunset)
+- photo-1506743570808-d1c5ad7bb9b4 (Dramatic sunset sky)
+
+Twilight (Blue Hour, Purple Sky, Dusk):
+- photo-1507003211169-0a1dd7228f2d (Blue hour twilight)
+- photo-1469474968028-56623f02e42e (Purple dusk sky)
+- photo-1484950763426-56b5bf172dbb (Evening twilight)
+
+Night (Dark Sky, Stars, Moonlight):
+- photo-1419242902214-272b3f66ee7a (Starry night sky)
+- photo-1507003211169-0a1dd7228f2d (Night landscape)
+- photo-1469474968028-56623f02e42e (Moonlit night)
+
+Late Night (Deep Night, Milky Way, Astronomical):
+- photo-1419242902214-272b3f66ee7a (Milky way stars)
+- photo-1446776877081-d282a0f896e2 (Deep night sky)
+- photo-1502134249126-9f3755a50d78 (Astronomical night)
+
+ATTRIBUTION (Optional but Appreciated):
+======================================
+
+While not required by the Unsplash License, we appreciate the photographers who made these beautiful images available:
+
+All images: Courtesy of Unsplash (https://unsplash.com/)
+
+USAGE IN THIS PROJECT:
+=====================
+
+These images are used as dynamic background images that change based on the time of day to enhance the user experience of the Sunrise & Sunset Tracker web application.
+
+The images are cropped to 1920x1080 landscape format and served locally to ensure application reliability and performance.
+
+COMPLIANCE:
+===========
+
+This usage complies with:
+- Unsplash License terms
+- Fair use guidelines for web applications
+- No commercial restrictions
+
+For the most up-to-date license information, please visit: https://unsplash.com/license
+
+Last Updated: July 1, 2025
