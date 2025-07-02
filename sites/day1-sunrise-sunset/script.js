@@ -66,14 +66,20 @@ function hideSearchInput() {
 }
 
 // Update current date display
-function updateCurrentDate() {
+function updateCurrentDate(timezone = null) {
     const now = new Date();
     const options = { 
         weekday: 'long', 
         year: 'numeric', 
         month: 'long', 
-        day: 'numeric' 
+        day: 'numeric'
     };
+    
+    // If timezone is provided, use it; otherwise use browser's timezone
+    if (timezone) {
+        options.timeZone = timezone;
+    }
+    
     document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
 }
 
@@ -128,7 +134,7 @@ async function requestIPLocation() {
 }
 
 // Handle search input (city name or coordinates)
-function handleSearch() {
+async function handleSearch() {
     const searchInput = document.getElementById('location-search');
     const searchValue = searchInput.value.trim();
     
@@ -139,9 +145,9 @@ function handleSearch() {
     
     // Check if input looks like coordinates
     if (isCoordinateInput(searchValue)) {
-        parseAndUseCoordinates(searchValue);
+        await parseAndUseCoordinates(searchValue);
     } else {
-        searchLocation(searchValue);
+        await searchLocation(searchValue);
     }
 }
 
@@ -157,7 +163,7 @@ function isCoordinateInput(input) {
 }
 
 // Parse coordinates from input string
-function parseAndUseCoordinates(input) {
+async function parseAndUseCoordinates(input) {
     try {
         // Clean up the input
         let cleaned = input.replace(/[°NSEW]/gi, '').replace(/\s+/g, ' ').trim();
@@ -197,14 +203,16 @@ function parseAndUseCoordinates(input) {
             },
             locationData: {
                 method: 'Manual Coordinates',
-                searchTerm: input
+                searchTerm: input,
+                timezone: await getTimezoneFromCoordinates(lat, lng)
             }
         };
         
         onLocationSuccess(position);
         
     } catch (error) {
-        alert('Invalid coordinates. Please use format like: "40.7128, -74.0060"');
+        console.error('Coordinate parsing error:', error);
+        alert(error.message || 'Invalid coordinates. Please use format like: "40.7128, -74.0060"');
     }
 }
 
@@ -238,7 +246,8 @@ async function searchLocation(searchTerm) {
                 city: result.display_name.split(',')[0],
                 country: result.display_name.split(',').pop().trim(),
                 method: 'Search',
-                searchTerm: searchTerm
+                searchTerm: searchTerm,
+                timezone: await getTimezoneFromCoordinates(parseFloat(result.lat), parseFloat(result.lon))
             }
         };
         
@@ -298,9 +307,17 @@ function displayLocation() {
         <span class="current-location">${cityInfo}</span>
     `;
     
-    // Display coordinates
+    // Display coordinates and timezone
     if (userLocation.latitude && userLocation.longitude) {
-        coordinatesDiv.innerHTML = `${userLocation.latitude.toFixed(4)}°, ${userLocation.longitude.toFixed(4)}°`;
+        let coordinateText = `${userLocation.latitude.toFixed(4)}°, ${userLocation.longitude.toFixed(4)}°`;
+        
+        // Add timezone info if available
+        if (userLocation.locationInfo?.timezone) {
+            const timezoneDisplay = getTimezoneDisplay(userLocation.locationInfo.timezone);
+            coordinateText += ` • ${timezoneDisplay}`;
+        }
+        
+        coordinatesDiv.innerHTML = coordinateText;
         coordinatesDiv.style.display = 'block';
     } else {
         coordinatesDiv.style.display = 'none';
@@ -319,9 +336,25 @@ async function fetchSunData() {
     }
 
     try {
-        const response = await fetch(
-            `https://api.sunrise-sunset.org/json?lat=${userLocation.latitude}&lng=${userLocation.longitude}&formatted=0`
-        );
+        // Get timezone for the location
+        let timezone = userLocation.locationInfo?.timezone;
+        if (!timezone) {
+            timezone = await getTimezoneFromCoordinates(userLocation.latitude, userLocation.longitude);
+            // Store timezone in userLocation for future use
+            if (userLocation.locationInfo) {
+                userLocation.locationInfo.timezone = timezone;
+            }
+        }
+        
+        // Get today's date in the location's timezone
+        const localDate = new Date().toLocaleDateString('en-CA', { timeZone: timezone }); // YYYY-MM-DD format
+        
+        // Build API URL with timezone and date
+        const apiUrl = `https://api.sunrise-sunset.org/json?lat=${userLocation.latitude}&lng=${userLocation.longitude}&date=${localDate}&formatted=0`;
+        
+        console.log(`Fetching sun data for ${localDate} in timezone ${timezone}`);
+        
+        const response = await fetch(apiUrl);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -347,22 +380,29 @@ async function fetchSunData() {
 function displaySunTimes() {
     if (!sunData) return;
 
-    // Convert UTC times to local time
+    // Get the timezone for the location
+    const timezone = userLocation.locationInfo?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // Convert UTC times to location's timezone
     const sunrise = new Date(sunData.sunrise);
     const sunset = new Date(sunData.sunset);
     const solarNoon = new Date(sunData.solar_noon);
     
-    // Format times
+    // Format times with the location's timezone
     const timeOptions = { 
         hour: '2-digit', 
         minute: '2-digit',
-        hour12: true
+        hour12: true,
+        timeZone: timezone
     };
     
-    // Update time displays
+    // Update time displays with location-specific times
     document.getElementById('sunrise-time').textContent = sunrise.toLocaleTimeString('en-US', timeOptions);
     document.getElementById('sunset-time').textContent = sunset.toLocaleTimeString('en-US', timeOptions);
     document.getElementById('solar-noon').textContent = solarNoon.toLocaleTimeString('en-US', timeOptions);
+    
+    // Update the current date display to show the date in the location's timezone
+    updateCurrentDate(timezone);
     
     // Calculate and display day length
     const dayLengthMs = sunset.getTime() - sunrise.getTime();
@@ -601,6 +641,57 @@ function getLastSunday(year, month) {
     const lastDay = new Date(year, month + 1, 0); // Last day of month
     const lastSunday = new Date(year, month, lastDay.getDate() - lastDay.getDay());
     return new Date(year, month, lastSunday.getDate(), 2, 0, 0); // 2 AM
+}
+
+// Get timezone information from coordinates
+async function getTimezoneFromCoordinates(lat, lng) {
+    try {
+        // Use the timeapi.io service which is free and doesn't require an API key
+        const response = await fetch(`https://timeapi.io/api/TimeZone/coordinate?latitude=${lat}&longitude=${lng}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.timeZone) {
+            return data.timeZone;
+        } else {
+            throw new Error('No timezone data in response');
+        }
+        
+    } catch (error) {
+        console.warn('Failed to fetch timezone from API, using browser timezone:', error);
+        // Fallback to browser's timezone
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+}
+
+// Get a user-friendly timezone display
+function getTimezoneDisplay(timezone) {
+    if (!timezone) return '';
+    
+    try {
+        // Get the timezone abbreviation (like EST, PST, etc.)
+        const date = new Date();
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: timezone,
+            timeZoneName: 'short'
+        });
+        
+        const parts = formatter.formatToParts(date);
+        const timeZoneName = parts.find(part => part.type === 'timeZoneName')?.value || '';
+        
+        // Also get the full timezone name for fallback
+        const fullName = timezone.split('/').pop().replace(/_/g, ' ');
+        
+        // Return abbreviation if available, otherwise use full name
+        return timeZoneName || fullName;
+    } catch (error) {
+        // Fallback to basic name extraction
+        return timezone.split('/').pop().replace(/_/g, ' ');
+    }
 }
 
 // Set dynamic background based on time of day with real outdoor images
