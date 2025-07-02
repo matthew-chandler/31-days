@@ -1,2 +1,2 @@
-pip install flask
-pip install flask-cors
+pip3 install flask
+pip3 install flask-cors
