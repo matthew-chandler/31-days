@@ -5,8 +5,10 @@ import datetime
 from collections import defaultdict, Counter
 import os
 import requests as pyrequests
+from werkzeug.middleware.proxy_fix import ProxyFix  # <-- Add this import
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)  # <-- Add this line
 CORS(app, origins=["https://uuixd.machandler.com"])  # Restrict CORS to your frontend domain
 
 COUNTER_FILE = 'recent_uuid.tmp'
