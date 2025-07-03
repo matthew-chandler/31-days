@@ -9,7 +9,7 @@ async function generateUuid() {
     display.textContent = 'Loading...';
     if (copiedFeedback) copiedFeedback.style.display = 'none';
     try {
-        const response = await fetch('https://api.machandler.com/uuixd/');
+        const response = await fetch('https://api.machandler.com/');
         if (!response.ok) {
             const errorText = await response.text();
             display.textContent = `Error: ${response.status} - ${errorText}`;

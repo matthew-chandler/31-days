@@ -97,10 +97,15 @@ def check_rate_limit(ip):
         return False
     return True
 
-@app.route('/uuixd/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def increment_uuid():
     global uuid_int
-    ip = request.remote_addr
+    # Use X-Forwarded-For for real client IP if behind proxy
+    xff = request.headers.get('X-Forwarded-For')
+    if xff:
+        ip = xff.split(',')[0].strip()
+    else:
+        ip = request.remote_addr
     if not check_rate_limit(ip):
         abort(429, description=f"Rate limit exceeded: {RATE_LIMIT} requests per IP per day.")
     log_request(request)
@@ -118,7 +123,7 @@ def increment_uuid():
     uuid_str = f'{hex_str[0:8]}-{hex_str[8:12]}-{hex_str[12:16]}-{hex_str[16:20]}-{hex_str[20:32]}'
     return uuid_str
 
-@app.route('/uuixd/leaderboard', methods=['GET'])
+@app.route('/leaderboard', methods=['GET'])
 def leaderboard():
     with country_lock:
         top = country_counts.most_common(3)
