@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)  # <-- Add this line
 CORS(app, origins=["https://uuixd.machandler.com"])  # Restrict CORS to your frontend domain
 
-COUNTER_FILE = 'recent_uuid.tmp'
-COUNTRY_FILE = 'country_counts.tmp'
+COUNTER_FILE = 'recent_uuid.log'
+COUNTRY_FILE = 'country_counts.log'
 
 def load_counter():
     if os.path.exists(COUNTER_FILE):
