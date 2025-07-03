@@ -1,5 +1,5 @@
-from flask import Flask, request, abort, jsonify
-from flask_cors import CORS
+from flask import Flask, request, abort, jsonify, Response
+from flask_cors import CORS, cross_origin
 from threading import Lock
 import datetime
 from collections import defaultdict, Counter
@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)  # <-- Add this line
 CORS(app, origins=["https://uuixd.machandler.com"])  # Restrict CORS to your frontend domain
 
-COUNTER_FILE = 'recent_uuid.log'
-COUNTRY_FILE = 'country_counts.log'
+COUNTER_FILE = 'recent_uuid.tmp'
+COUNTRY_FILE = 'country_counts.tmp'
 
 def load_counter():
     if os.path.exists(COUNTER_FILE):
@@ -99,10 +99,9 @@ def check_rate_limit(ip):
         return False
     return True
 
-@app.route('/', methods=['GET'])
+@app.route('/uuixd', methods=['GET'])
 def increment_uuid():
     global uuid_int
-    # Use X-Forwarded-For for real client IP if behind proxy
     xff = request.headers.get('X-Forwarded-For')
     if xff:
         ip = xff.split(',')[0].strip()
@@ -111,7 +110,6 @@ def increment_uuid():
     if not check_rate_limit(ip):
         abort(429, description=f"Rate limit exceeded: {RATE_LIMIT} requests per IP per day.")
     log_request(request)
-    # Country tracking
     country = get_country(ip)
     with country_lock:
         country_counts[country] += 1
@@ -120,10 +118,9 @@ def increment_uuid():
         value = uuid_int
         uuid_int += 1
         save_counter(uuid_int)
-    # Format as 32 hex digits, grouped as UUID 8-4-4-4-12
     hex_str = f'{value:032x}'
     uuid_str = f'{hex_str[0:8]}-{hex_str[8:12]}-{hex_str[12:16]}-{hex_str[16:20]}-{hex_str[20:32]}'
-    return uuid_str
+    return jsonify({"uuid": uuid_str})
 
 @app.route('/leaderboard', methods=['GET'])
 def leaderboard():

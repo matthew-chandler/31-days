@@ -9,14 +9,14 @@ async function generateUuid() {
     display.textContent = 'Loading...';
     if (copiedFeedback) copiedFeedback.style.display = 'none';
     try {
-        const response = await fetch('https://api.machandler.com/');
+        const response = await fetch('https://api.machandler.com/uuixd/uuixd');
         if (!response.ok) {
             const errorText = await response.text();
             display.textContent = `Error: ${response.status} - ${errorText}`;
             return;
         }
-        const uuid = await response.text();
-        display.textContent = uuid;
+        const data = await response.json();
+        display.textContent = data.uuid;
     } catch (err) {
         display.textContent = 'Network error: ' + err;
     }
