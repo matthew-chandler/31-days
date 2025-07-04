@@ -68,6 +68,11 @@ function endGame() {
     updateLeaderboard(parseFloat(currentCPS), testDuration);
     document.getElementById('game-area').style.display = 'none';
     result.style.display = 'block';
+
+    resetButton.disabled = true;
+    setTimeout(() => {
+        resetButton.disabled = false;
+    }, 1000);
 }
 
 function updateLeaderboard(cps, duration) {
