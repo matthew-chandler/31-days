@@ -62,6 +62,7 @@ resetButton.addEventListener('click', () => {
 
 function endGame() {
     clearInterval(timerId);
+    durationSlider.disabled = false;
     finalClicks.textContent = clickCount;
     const currentCPS = (clickCount / testDuration).toFixed(2);
     cps.textContent = currentCPS;
