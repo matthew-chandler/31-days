@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Speed Test</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Click Speed Test</h1>
+        <p>Click the box as many times as you can!</p>
+        <div id="settings">
+            <label for="duration-slider">Test Duration</label>
+            <input type="range" id="duration-slider" min="5" max="30" value="10">
+        </div>
+        <div id="game-area">
+            <p>Time left: <span id="timer">10.000</span></p>
+            <div id="box">
+                <span id="clicks">0</span>
+            </div>
+        </div>
+        <div id="result" style="display: none;">
+            <h2>Time's up!</h2>
+            <p>You clicked the box <span id="final-clicks"></span> times.</p>
+            <p>CPS: <span id="cps"></span></p>
+            <button id="reset-button">Play Again</button>
+        </div>
+        <div id="leaderboard" style="display: none;">
+            <h2>Leaderboard</h2>
+            <ol id="leaderboard-list"></ol>
+        </div>
+        <footer>
+            <p>Inspired by <a href="https://www.mcrpg.com/kohi-click-test/" target="_blank">Kohi Click Test</a>.</p>
+            <p>Learn about this site and more on <a href="https://www.machandler.com/31-days/" target="_blank">my website</a>.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
