@@ -1,0 +1,105 @@
+@keyframes rocketTrail {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.5);
+    filter: brightness(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(15px) scale(1.2);
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+.firework-rocket {
+  box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  filter: brightness(1.8);
+}
+
+/* Simplified explosive flash effect */
+.firework {
+  animation: explosiveFlash 0.1s ease-out;
+}
+
+@keyframes explosiveFlash {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* Simplified particle base styling */
+.particle {
+  transition: opacity 0.1s ease-out;
+}
+
+/* Brocade effect - simplified glow */
+.particle.brocade {
+  box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+  border-radius: 50%;
+}
+
+/* Strobe effect - simplified blinking */
+.particle.strobe {
+  animation: strobe 0.15s linear infinite;
+  box-shadow: 0 0 12px currentColor;
+}
+
+@keyframes strobe {
+  0%, 50% { 
+    opacity: 1; 
+  }
+  51%, 100% { 
+    opacity: 0.3; 
+  }
+}
+
+/* Chrysanthemum effect - simplified particles */
+.particle.chrysanthemum {
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* Peony effect - simplified burst */
+.particle.peony {
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+/* Ring effect - simplified ring pattern */
+.particle.ring {
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Crackling effect - simplified sparkles */
+.particle.crackling {
+  animation: crackle 0.2s linear infinite;
+  border-radius: 30%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+@keyframes crackle {
+  0% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% { 
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
