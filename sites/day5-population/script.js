@@ -9,6 +9,7 @@ class PopulationExplorer {
         this.initializeEventListeners();
         this.loadCountries();
         this.initializeYearSelectors();
+        this.focusSearchInput();
     }
 
     initializeElements() {
@@ -25,6 +26,13 @@ class PopulationExplorer {
         this.startYearSelect = document.getElementById('startYear');
         this.endYearSelect = document.getElementById('endYear');
         this.statsSummary = document.getElementById('statsSummary');
+    }
+
+    focusSearchInput() {
+        // Small delay to ensure the page is fully loaded before focusing
+        setTimeout(() => {
+            this.searchInput.focus();
+        }, 100);
     }
 
     initializeEventListeners() {
