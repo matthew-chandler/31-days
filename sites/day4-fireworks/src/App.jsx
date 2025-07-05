@@ -35,8 +35,8 @@ function App() {
   }, [createFirework])
 
   const scheduleNextAutoFirework = useCallback(() => {
-    // Random interval between 0-3 seconds
-    const nextInterval = Math.random() * 3000
+    // Random interval between 0-1.5 seconds
+    const nextInterval = Math.random() * 1500
     autoFireworkTimerRef.current = setTimeout(() => {
       createRandomFirework()
       scheduleNextAutoFirework() // Schedule the next one
