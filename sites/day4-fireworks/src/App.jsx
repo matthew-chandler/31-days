@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import FireworksDisplay from './components/FireworksDisplay'
 import './App.css'
 
 function App() {
   const [fireworks, setFireworks] = useState([])
+  const autoFireworkTimerRef = useRef(null)
 
   const createFirework = useCallback((x, y) => {
     const colors = ['#ff0000', '#0066ff', '#ffd700', '#00ff00', '#9966ff', '#ff8800', '#ffffff']
@@ -26,6 +27,34 @@ function App() {
     }, 3000)
   }, [])
 
+  const createRandomFirework = useCallback(() => {
+    // Generate random position within the viewport
+    const x = Math.random() * window.innerWidth
+    const y = Math.random() * (window.innerHeight * 0.7) + (window.innerHeight * 0.1) // Keep in upper 70% of screen
+    createFirework(x, y)
+  }, [createFirework])
+
+  const scheduleNextAutoFirework = useCallback(() => {
+    // Random interval between 0-3 seconds
+    const nextInterval = Math.random() * 3000
+    autoFireworkTimerRef.current = setTimeout(() => {
+      createRandomFirework()
+      scheduleNextAutoFirework() // Schedule the next one
+    }, nextInterval)
+  }, [createRandomFirework])
+
+  useEffect(() => {
+    // Start the automatic fireworks
+    scheduleNextAutoFirework()
+
+    // Cleanup timer on unmount
+    return () => {
+      if (autoFireworkTimerRef.current) {
+        clearTimeout(autoFireworkTimerRef.current)
+      }
+    }
+  }, [scheduleNextAutoFirework])
+
   const handleClick = useCallback((e) => {
     const rect = e.target.getBoundingClientRect()
     const x = e.clientX - rect.left
@@ -39,6 +68,9 @@ function App() {
       <div className="attribution">
         <a href="https://www.vecteezy.com/free-vector/skyscraper">Skyscraper Vectors by Vecteezy</a>
       </div>
+      <footer className="footer">
+        <p>Learn more about this site and more on <a href="https://www.machandler.com/31-days/" target="_blank" rel="noopener noreferrer">my website</a></p>
+      </footer>
     </div>
   )
 }
