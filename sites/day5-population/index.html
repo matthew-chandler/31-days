@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Population Explorer</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 World Population Explorer</h1>
+            <p>Explore population trends across countries using World Bank data</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="countrySearch" 
+                    placeholder="Search for countries... (Enter to select, Ctrl+Enter to query)"
+                    autocomplete="off"
+                >
+                <div class="dropdown" id="dropdown"></div>
+                <div class="keyboard-hints">
+                    <small>💡 <strong>Enter</strong> to select top result • <strong>Ctrl+Enter</strong> to query data • <strong>Esc</strong> to close</small>
+                </div>
+            </div>
+            
+            <div class="selected-countries" id="selectedCountries">
+                <h3>Selected Countries:</h3>
+                <div class="country-tags" id="countryTags"></div>
+            </div>
+
+            <div class="controls">
+                <div class="year-range">
+                    <label for="startYear">From:</label>
+                    <select id="startYear"></select>
+                    <label for="endYear">To:</label>
+                    <select id="endYear"></select>
+                    <small style="color: #666; margin-left: 10px;">📅 Data available from 1960-2024</small>
+                </div>
+                <button id="queryBtn" class="query-btn" disabled>
+                    📊 QUERY POPULATION DATA
+                </button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Fetching population data...</p>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="chart-controls">
+                <button id="toggleChart" class="toggle-btn">Switch to Table View</button>
+                <button id="downloadData" class="download-btn">📥 Download Data</button>
+            </div>
+            
+            <div class="chart-container" id="chartContainer">
+                <canvas id="populationChart"></canvas>
+            </div>
+
+            <div class="table-container" id="tableContainer" style="display: none;">
+                <table id="populationTable">
+                    <thead id="tableHead"></thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="stats-summary" id="statsSummary"></div>
+        </div>
+
+        <footer>
+            <p>Data provided by <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392" target="_blank">World Bank Open Data API</a></p>
+            <p>Learn about this site and more on <a href="https://www.machandler.com/31-days/" target="_blank">my website</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

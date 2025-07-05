@@ -43,6 +43,41 @@ Open your browser and navigate to `http://localhost:5173` to see the fireworks d
 npm run build
 ```
 
+**Note**: Make sure to use `npm run build` (not `npm build`). The `run` is required for custom scripts.
+
+### Troubleshooting Build Issues
+
+If you get "vite: not found" errors:
+
+1. **Check you're using the correct command:**
+   ```bash
+   npm run build  # ✅ Correct
+   npm build      # ❌ Wrong - will cause "vite: not found"
+   ```
+
+2. **Ensure dependencies are installed:**
+   ```bash
+   npm install
+   ```
+
+3. **Verify node_modules exists:**
+   ```bash
+   ls node_modules  # Should show installed packages
+   ```
+
+4. **Check Node.js version:**
+   ```bash
+   node --version  # Should be v20.19.0 or higher
+   npm --version
+   ```
+
+5. **Clear npm cache if needed:**
+   ```bash
+   npm cache clean --force
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
 ## 🎮 How to Use
 
 1. Open the application in your browser
