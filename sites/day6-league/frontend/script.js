@@ -20,7 +20,7 @@ class RiotAPI {
             return data.data;
         } catch (error) {
             if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                throw new Error('Cannot connect to backend server. Make sure the Flask server is running on http://localhost:5000');
+                throw new Error('Cannot connect to backend server.');
             }
             throw error;
         }
