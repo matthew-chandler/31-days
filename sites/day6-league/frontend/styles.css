@@ -34,6 +34,22 @@ header p {
     opacity: 0.9;
 }
 
+.disclaimer {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.disclaimer p {
+    font-size: 0.95rem;
+    color: #f0f0f0;
+    margin: 0;
+    line-height: 1.4;
+}
+
 .search-section {
     background: white;
     border-radius: 15px;

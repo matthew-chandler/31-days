@@ -353,4 +353,7 @@ def internal_error(error):
 if __name__ == '__main__':
     print(f"Starting Flask server...")
     print(f"API Key configured: {'Yes' if RIOT_API_KEY else 'No'}")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use port 5003 for production, disable debug mode
+    port = int(os.environ.get('PORT', 5003))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    app.run(debug=debug, host='0.0.0.0', port=port)

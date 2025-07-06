@@ -1,7 +1,7 @@
 class RiotAPI {
     constructor() {
-        // Backend API base URL - adjust if your Flask server runs on a different port
-        this.backendUrl = 'http://localhost:5000';
+        // Backend API base URL - will use the same domain with port 5003
+        this.backendUrl = `${window.location.protocol}//${window.location.hostname}:5003`;
     }
 
     async makeRequest(url) {
