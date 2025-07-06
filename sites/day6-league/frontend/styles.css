@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #8B4513 0%, #654321 50%, #2F1B14 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.search-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.region-select {
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.region-select:focus {
+    outline: none;
+    border-color: #8B4513;
+}
+
+.summoner-input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.summoner-input:focus {
+    outline: none;
+    border-color: #8B4513;
+}
+
+.search-button {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+}
+
+.search-button:active {
+    transform: translateY(0);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #8B4513;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error {
+    background: #ffe6e6;
+    border: 2px solid #ff4444;
+    color: #cc0000;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.results {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.summoner-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.summoner-avatar {
+    margin-right: 20px;
+}
+
+.summoner-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #8B4513;
+}
+
+.summoner-details h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.summoner-details p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.last-game-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.game-time {
+    background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.game-time p {
+    margin-bottom: 5px;
+}
+
+.time-ago {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.game-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.game-details p {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .input-group > * {
+        width: 100%;
+    }
+    
+    .summoner-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .summoner-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}

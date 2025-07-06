@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Last Game Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 LoL Last Game Tracker</h1>
+            <p>Find out when you last played League of Legends</p>
+            <p><small>Enter your Riot ID (e.g., <strong>Player#NA1</strong>) - no longer just summoner names!</small></p>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <div class="input-group">
+                    <select id="regionSelect" class="region-select">
+                        <option value="na1">NA</option>
+                        <option value="euw1">EUW</option>
+                        <option value="eune1">EUNE</option>
+                        <option value="kr">KR</option>
+                        <option value="jp1">JP</option>
+                        <option value="br1">BR</option>
+                        <option value="la1">LAN</option>
+                        <option value="la2">LAS</option>
+                        <option value="oc1">OCE</option>
+                        <option value="tr1">TR</option>
+                        <option value="ru">RU</option>
+                    </select>
+                    <input 
+                        type="text" 
+                        id="summonerInput" 
+                        placeholder="Enter Riot ID (e.g., Player#NA1)..."
+                        class="summoner-input"
+                    >
+                    <button id="searchButton" class="search-button">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div id="loadingSpinner" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Searching for summoner...</p>
+            </div>
+
+            <div id="errorMessage" class="error hidden">
+                <p></p>
+            </div>
+
+            <div id="results" class="results hidden">
+                <div class="summoner-info">
+                    <div class="summoner-avatar">
+                        <img id="summonerIcon" src="" alt="Summoner Icon">
+                    </div>
+                    <div class="summoner-details">
+                        <h2 id="summonerName"></h2>
+                        <p id="summonerLevel"></p>
+                    </div>
+                </div>
+
+                <div class="last-game-info">
+                    <h3>Last Game Played</h3>
+                    <div class="game-time">
+                        <p id="lastGameDate"></p>
+                        <p id="timeAgo" class="time-ago"></p>
+                    </div>
+                    <div class="game-details">
+                        <p id="gameMode"></p>
+                        <p id="champion"></p>
+                        <p id="gameResult"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
