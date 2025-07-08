@@ -1,0 +1,74 @@
+<div class="container mt-5">
+  <div class="header">
+    <h1>🔗 Link Shortener</h1>
+    <p class="lead">Create short URLs for your long links</p>
+  </div>
+
+  <!-- URL Creation Form -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Create Short URL</h5>
+      <form (ngSubmit)="createShortURL()" #urlForm="ngForm">
+        <div class="mb-3">
+          <label for="longUrl" class="form-label">Long URL</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="longUrl" 
+            [(ngModel)]="longUrl" 
+            name="longUrl"
+            placeholder="example.com/very/long/url/path (https:// will be added automatically)"
+            required>
+          <div class="form-text">Enter a URL - protocol (https://) will be added automatically if not provided</div>
+        </div>
+        <div class="mb-3">
+          <label for="shortPath" class="form-label">Short Path</label>
+          <div class="input-group">
+            <span class="input-group-text">{{ serviceDomain }}/</span>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="shortPath" 
+              [(ngModel)]="shortPath" 
+              name="shortPath"
+              placeholder="example"
+              pattern="[a-zA-Z0-9_-]+"
+              title="Only letters, numbers, hyphens, and underscores allowed"
+              required>
+          </div>
+          <div class="form-text">Only letters, numbers, hyphens, and underscores allowed</div>
+        </div>
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="!urlForm.form.valid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ isLoading ? 'Creating...' : 'Create Short URL' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{ errorMessage }}
+    <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5 py-4 bg-light">
+  <div class="container text-center">
+    <p class="mb-0 text-muted">
+      Learn about this site and more on 
+      <a href="https://www.machandler.com/31-days" target="_blank" rel="noopener noreferrer" class="text-primary">
+        my website
+      </a>
+    </p>
+  </div>
+</footer>
