@@ -16,7 +16,18 @@ load_dotenv(dotenv_path="../.env")
 # Get configuration from environment variables
 SERVICE_DOMAIN = os.getenv("SERVICE_DOMAIN", "localhost:5000")
 BACKEND_HOST = os.getenv("BACKEND_HOST", "localhost:5000")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:5000")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:4200")
+FRONTEND_HOST = os.getenv("FRONTEND_HOST", "localhost:4200")
+
+# Build CORS origins from environment
+cors_origins = [
+    FRONTEND_URL,
+    f"http://{FRONTEND_HOST}",
+    f"https://{FRONTEND_HOST}",
+    "http://127.0.0.1:4200",  # Local development
+    "http://localhost:4200"   # Local development
+]
 
 # Setup logging
 logging.basicConfig(
@@ -84,7 +95,7 @@ async def log_requests(request: Request, call_next):
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://127.0.0.1:4200"],  # Angular dev server
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
