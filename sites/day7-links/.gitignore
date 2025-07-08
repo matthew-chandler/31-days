@@ -34,14 +34,6 @@ venv/
 ENV/
 env/
 
-# Angular
-node_modules/
-dist/
-.angular/
-*.tgz
-.npm
-.eslintcache
-
 # IDE
 .vscode/
 .idea/

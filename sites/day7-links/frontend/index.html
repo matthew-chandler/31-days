@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Shortener</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="theme-toggle">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+        <header>
+            <h1>Link Shortener</h1>
+            <p>Create short, shareable links instantly</p>
+        </header>
+
+        <main>
+            <div class="form-container">
+                <form id="urlForm">
+                    <div class="form-group">
+                        <label for="originalUrl">Original URL</label>
+                        <input 
+                            type="text" 
+                            id="originalUrl" 
+                            name="originalUrl" 
+                            placeholder="example.com/very-long-url"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customShortCode">Custom Short Code (Optional)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">https://l.machandler.com/</span>
+                            <input 
+                                type="text" 
+                                id="customShortCode" 
+                                name="customShortCode" 
+                                placeholder="my-link"
+                                pattern="[a-zA-Z0-9\-_]+"
+                                title="Only letters, numbers, hyphens, and underscores allowed"
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn">
+                        <span id="submitText">Create Short Link</span>
+                        <span id="loadingText" class="loading hidden">Creating...</span>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div id="successMessage" class="message success hidden">
+                    <h3>Success!</h3>
+                    <p>Your short link has been created:</p>
+                    <div class="short-url-container">
+                        <input type="text" id="shortUrl" readonly>
+                        <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    <button id="createAnotherBtn" onclick="resetForm()">Create Another</button>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="message error hidden">
+                    <h3>Error</h3>
+                    <p id="errorText"></p>
+                    <button onclick="hideError()">Try Again</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>
+                Learn about this site and more on 
+                <a href="https://www.machandler.com/31-days" target="_blank" rel="noopener noreferrer">
+                    my website
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
