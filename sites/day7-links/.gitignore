@@ -1,10 +1,7 @@
-# Logs
-logs/
-*.log
+# Backend state data
+backend/data/*
+backend/logs/*
 
-# Data storage
-data/
-*.json
 
 # Environment variables
 .env
