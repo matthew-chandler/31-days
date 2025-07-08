@@ -1,7 +1,6 @@
 class RiotAPI {
     constructor() {
-        // Backend API base URL - will use the same domain with port 5003
-        this.backendUrl = `${window.location.protocol}//${window.location.hostname}:5003`;
+        this.backendUrl = 'https://league.machandler.com';
     }
 
     async makeRequest(url) {
@@ -84,7 +83,7 @@ class App {
             console.log('✅ Backend server is running and healthy');
         } catch (error) {
             console.warn('⚠️ Backend server health check failed:', error.message);
-            this.showError('Backend server is not running. Please start the Flask server first.');
+            this.showError('Backend server is not running.');
         }
     }
 
@@ -184,6 +183,3 @@ class App {
 document.addEventListener('DOMContentLoaded', () => {
     new App();
 });
-
-// Note: The Flask backend handles all API communication with Riot Games
-// Your API key is securely stored in the .env file on the server
